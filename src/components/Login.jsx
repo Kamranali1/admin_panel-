@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { backendUrl } from '../App'
+import { toast } from 'react-toastify'
 
 const Login = ({setToken}) => {
     const [email,setEmail] = useState('')
@@ -13,7 +14,7 @@ const Login = ({setToken}) => {
          if(response.data.success){
             setToken(response.data.token)
          }else{
-            
+            toast.error(response.data.msg)
          }
     }catch(error){
         console.log(error.message)

@@ -7,7 +7,7 @@ import List from './pages/List.jsx'
 import Orders from './pages/Orders.jsx'
 import Login from './components/Login.jsx'
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
- 
+import { ToastContainer } from 'react-toastify' 
   
 const App = () => {
      const [token,setToken] = useState(localStorage.getItem("token")?localStorage.getItem("token"):"")  
@@ -18,6 +18,7 @@ const App = () => {
 
      return (
     <div className='bg-gray-50 min-h-screen' >
+    <ToastContainer />
     {
       token ==='' ? <Login setToken={setToken} /> : 
       
