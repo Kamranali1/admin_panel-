@@ -12,3 +12,5 @@ export const assets = {
     parcel_icon
 }
 
+
+export default logo

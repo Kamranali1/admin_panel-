@@ -5,6 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
+select,input,textarea{
+     border: #c586a5;
+    overflow: pink;
+    
+}
+
 *{
     font-family: Outfit;
 }
