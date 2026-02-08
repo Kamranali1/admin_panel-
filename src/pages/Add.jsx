@@ -14,10 +14,29 @@ const Add = () => {
      const[image2,setImage2] = useState()
      const[image3,setImage3] = useState()
      const[image4,setImage4] = useState()
-  
+
+     
+
+     const sizesadd = (value)=>{
+         setSizes(prev=>  prev.includes(value)? prev.filter(item=>item != value) :  [...prev,value])
+       }
+
+     const onSubmitHandler =(e)=>{
+        e.preventDefault()
+         let formData = new FormData()
+         formData.append("name",name)
+         formData.append("description",description)
+         formData.append('category',category)
+         formData.append('subCategory',subCategory)
+         formData.append('price',price)
+         formData.append('sizes',JSON.stringify(sizes))
+         formData.append('bestseller',bestseller)
+
+         console.log(formData)
+     }
 
   return (
-    <form>
+    <form onSubmit={(e)=>onSubmitHandler(e)}>
       <div className='w-full' >
         <p>Upload Images</p>
         <div className='flex gap-4 py-2'>
@@ -82,33 +101,33 @@ const Add = () => {
 
         <div>
           <p className='mb-2'>Price</p>
-          <input onChange={(e)=>setPrice(e.target.value)} value={price} className='border px-3 py-2 ' type="number" placeholder='25' />
+          <input onChange={(e)=>setPrice(Number(e.target.value))} value={price} className='border px-3 py-2 ' type="number" placeholder='25' />
         </div>
       </div>
 
       <div className='mt-2'>
         <p>Product sizes</p>
         <div className='flex flex-row gap-3 mt-2'>
-          <div className='bg-gray-300 text-gray-800 px-3 py-2'>
+          <div onClick={()=>sizesadd("S")} className={`${sizes.includes("S")?`bg-pink-100 shadow-inner` :`bg-gray-300 ` } text-gray-800 px-3 py-2`}>
             <p>S</p>
           </div>
-          <div className='bg-gray-300 text-gray-800 px-3 py-2'>
+          <div onClick={()=>sizesadd("M")} className={`${sizes.includes("M")?`bg-pink-100 shadow-inner` :`bg-gray-300 ` } text-gray-800 px-3 py-2`}>
             <p>M</p>
           </div>
-          <div className='bg-gray-300 text-gray-800 px-3 py-2' > 
+          <div onClick={()=>sizesadd("L")} className={`${sizes.includes("L")?`bg-pink-100 shadow-inner` :`bg-gray-300 ` } text-gray-800 px-3 py-2`} > 
             <p>L</p>
           </div>
-          <div className='bg-gray-300 text-gray-800 px-3 py-2'>
+          <div onClick={()=>sizesadd("XL")} className={`${sizes.includes("XL")?`bg-pink-100 shadow-inner` :`bg-gray-300 ` } text-gray-800 px-3 py-2`}>
             <p>XL</p>
           </div>
-          <div className='bg-gray-300 text-gray-800 px-3 py-2' >
+          <div  onClick={()=>sizesadd("XXL")} className={`${sizes.includes("XXL")?`bg-pink-100 shadow-inner` :`bg-gray-300 ` } text-gray-800 px-3 py-2`} >
             <p>XXL</p>
           </div>
         </div>
       </div>
 
              <div className='flex gap-3 mt-5'>
-              <input type="CheckBox" />
+              <input type="CheckBox" onChange={(e)=>setBestseller(e.target.checked)} checked={bestseller} />
                 <p>Add to best seller </p>
          </div>
 
