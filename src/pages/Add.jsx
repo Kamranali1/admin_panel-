@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { assets } from '../assets/admin_assets/assets'
 import axios from 'axios'
 import { backendUrl } from '../App'
+import { toast } from 'react-toastify'
 const Add = ({token}) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -16,7 +17,6 @@ const Add = ({token}) => {
   const [image3, setImage3] = useState()
   const [image4, setImage4] = useState()
 
-console.log(token)
 
   const sizesadd = (value) => {
     setSizes(prev => prev.includes(value) ? prev.filter(item => item != value) : [...prev, value])
@@ -24,9 +24,12 @@ console.log(token)
 
   const onSubmitHandler = async (e) => {
     e.preventDefault()
-    let formData = new FormData()
-    formData.append("name", name)
-    formData.append("description", description)
+ try{
+
+   
+   let formData = new FormData()
+   formData.append("name", name)
+   formData.append("description", description)
     formData.append('category', category)
     formData.append('subCategory', subCategory)
     formData.append('price', price)
@@ -38,8 +41,15 @@ console.log(token)
     image4 && formData.append('image4',image4)
    
      const result2 = await axios.post(backendUrl + "/api/product/add",formData,{headers:{token}})
-    console.log(token)
-    console.log(result2)
+          if(result2.data.success){
+            toast.success(result2.data.msg)
+          }else{
+            toast.error(result2.data.msg)
+          }
+    }catch(error){
+      toast.error(error.message)
+      console.log(error.message)
+    }
   }
 
   return (
@@ -112,9 +122,9 @@ console.log(token)
         </div>
       </div>
 
-      <div className='mt-2'>
+      <div className='mt-2 flex flex-col w-1/2 '>
         <p>Product sizes</p>
-        <div className='flex flex-row gap-3 mt-2'>
+        <div className='grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-2'>
           <div onClick={() => sizesadd("S")} className={`${sizes.includes("S") ? `bg-pink-100 shadow-inner` : `bg-gray-300 `} text-gray-800 px-3 py-2`}>
             <p>S</p>
           </div>
