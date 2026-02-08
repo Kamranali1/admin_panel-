@@ -6,8 +6,8 @@ import { toast } from 'react-toastify'
 const Add = ({token}) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [category, setCategory] = useState('')
-  const [subCategory, setSubCategory] = useState('')
+  const [category, setCategory] = useState('Men')
+  const [subCategory, setSubCategory] = useState('Topwear')
   const [price, setPrice] = useState(0)
   const [sizes, setSizes] = useState([])
   const [bestseller, setBestseller] = useState(false)
